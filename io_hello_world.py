@@ -14,7 +14,7 @@ aio = Client(ADAFRUIT_IO_KEY)
 
 on_data = aio.receive('on_feed') 
 if on_data.value == "ON": 
-  while true:
+  while True:
     data = aio.receive('speed_feed')
     print('Latest value from speed_feed: {0}'.format(data.value))
     on_data = aio.receive('on_feed') 
