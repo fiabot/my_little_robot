@@ -16,6 +16,6 @@ data = aio.receive('speed_feed')
 print('Retrieved value from speed_feed has attributes: {0}'.format(data))
 print('Latest value from speed_feed: {0}'.format(data.value))
 
-date = aio.receive('on_feed') 
-print("on_feed data" + str(on_feed))
+on_data = aio.receive('on_feed') 
+print("on_feed data" + str(on_data))
 
