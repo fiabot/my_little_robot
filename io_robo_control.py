@@ -46,7 +46,7 @@ def message(client, feed_id, value):
     if feed_id == "turn_feed": 
         angle = value 
     elif feed_id == "speed_feed":
-        throttle = value 
+        throttle = int(value) 
         if throttle > THROTTLE_MAX: 
             print("setting to throttle max") 
             throttle = THROTTLE_MAX 
