@@ -81,7 +81,6 @@ def run_motor(angle,throttle,seconds = None):
   if angle < 0: 
     right_val = throttle 
     left_val = translate(angle, ANGLE_MIN,0,-throttle,throttle)
-    print(" before left_val" + str(left_val))
     left_val = int(left_val)
 
   elif angle >0: 
@@ -100,6 +99,7 @@ def run_motor(angle,throttle,seconds = None):
     print("right val is too high or low") 
     return
   
+  print("moving motor {} left and {} right" .format(left_val,right_val))
   robot.move_gen(left_val,right_val,seconds)
   
 # Setup the callback functions defined above.
