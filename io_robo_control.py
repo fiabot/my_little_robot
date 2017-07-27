@@ -65,6 +65,7 @@ def run_motor(angle,throttle,seconds = None):
    
 
 while True: 
+    time.sleep(5)
     #break out of loop if the toggle button is off 
     on_data = aio.receive("on_feed") 
     if on_data.value == "OFF": 
@@ -73,11 +74,12 @@ while True:
   
     #get angle from io
     angle_data = aio.receive("turn_feed") 
+    time.sleep(5)
     
     #get throttle data 
-    #throttle_data = aio.receive("speed_feed") 
-    #throttle= throttle_data.value
-    throttle = 5
+    throttle_data = aio.receive("speed_feed") 
+    throttle= throttle_data.value
+    
   
     if throttle > THROTTLE_MAX: 
         throttle = THROTTLE_MAX 
@@ -87,5 +89,5 @@ while True:
     #run robot 
     run_motor(angle_data.value, throttle)
     
-    time.sleep(1)
+    time.sleep(5)
   
