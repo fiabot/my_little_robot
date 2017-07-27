@@ -24,6 +24,7 @@ on = True
 
 #runs when connected to client
 def connected(client):
+    globals throttle,angle,on
     # Connected function will be called when the client is connected to Adafruit IO.
     # This is a good place to subscribe to feed changes.  The client parameter
     # passed to this function is the Adafruit IO MQTT client so you can make
@@ -33,6 +34,10 @@ def connected(client):
     client.subscribe('turn_feed')
     client.subscribe('on_feed')
     client.subscribe('speed_feed')
+    
+    client.publish("turn_feed", angle)
+    client.publish("on_feed", on)
+    client.publish("speed_feed", throttle)
 
 #runs when disconnected to io
 def disconnected(client):
