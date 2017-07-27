@@ -19,6 +19,8 @@ robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robo
 #map value from left range to right range
 def translate(value, min1, max1, min2, max2):
     # Figure out how 'wide' each range is
+    max2 = int(max2) 
+    min2 = int(min2)
     span1 = max1 - min1
     span2 = max2 - min2
 
@@ -31,13 +33,13 @@ def translate(value, min1, max1, min2, max2):
   
 def run_motor(angle,throttle,seconds = None): 
   global ANGLE_MIN, ANGLE_MAX,robot
-  
+  throttle = int(throttle)
   if angle < 0: 
     right_val = throttle 
-    left_val = translate(angle, ANGLE_MIN,0,-1 *throttle,throttle)
+    left_val = translate(angle, ANGLE_MIN,0,-throttle,throttle)
   elif angle >0: 
     left_val = throttle 
-    right_val = translate(angle,0,ANGLE_MAX,-1 *throttle,throttle) 
+    right_val = translate(angle,0,ANGLE_MAX,-throttle,throttle) 
   else: 
     left_val = throttle
     right_val = throttle 
