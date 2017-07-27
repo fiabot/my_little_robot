@@ -139,4 +139,8 @@ class Robot(object):
 
         self._left.run(Adafruit_MotorHAT.lft_dir)
         self._right.run(Adafruit_MotorHAT.rght_dir)
+        
+        if seconds is not None:
+            time.sleep(seconds)
+            self.stop()
    
