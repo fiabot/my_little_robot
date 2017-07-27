@@ -67,6 +67,7 @@ while True:
     #break out of loop if the toggle button is off 
     on_data = aio.receive("on_feed") 
     if on_data.value == "OFF": 
+        print("turned robot off, exiting program") 
         break 
   
     #get angle from io
