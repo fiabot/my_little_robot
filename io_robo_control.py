@@ -42,8 +42,7 @@ def message(client, feed_id, value):
     print("new message from {} value is {}".format(feed_id,value))
     if feed_id == "turn_feed": 
         angle = value 
-    elif feed_id == "speed_feed": 
-        print("setting throttle to" + str(value))
+    elif feed_id == "speed_feed":
         throttle = value 
         if throttle > THROTTLE_MAX: 
             throttle = THROTTLE_MAX 
@@ -77,6 +76,7 @@ def translate(value, x_min, x_max, y_min, y_max):
 def run_motor(angle,throttle,seconds = None): 
   global ANGLE_MIN, ANGLE_MAX,robot, THROTTLE_MAX,THROTTLE_MIN
   throttle = int(throttle)
+  print("throttle:" + throttle)
   angle = int(angle)
 
   if angle < 0: 
