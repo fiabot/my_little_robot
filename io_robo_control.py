@@ -58,7 +58,7 @@ while True:
   
     #get throttle data 
     throttle_data = aio.receive("speed_feed") 
-    throttle= throttle.value
+    throttle= throttle_data.value
   
     if throttle > THROTTLE_MAX: 
         throttle = THROTTLE_MAX 
