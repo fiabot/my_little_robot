@@ -24,7 +24,7 @@ on = True
 
 #runs when connected to client
 def connected(client):
-    globals throttle,angle,on
+    global throttle,angle,on
     # Connected function will be called when the client is connected to Adafruit IO.
     # This is a good place to subscribe to feed changes.  The client parameter
     # passed to this function is the Adafruit IO MQTT client so you can make
