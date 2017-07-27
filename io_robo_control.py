@@ -42,7 +42,7 @@ def run_motor(angle,throttle,seconds = None):
     left_val = throttle
     right_val = throttle 
   
-  robot.move_gen(left_val,right_val)
+  robot.move_gen(left_val,right_val,seconds)
   
    
 
