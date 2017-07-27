@@ -47,10 +47,10 @@ def run_motor(angle,throttle,seconds = None):
     
   if left_val > THROTTLE_MAX or left_val < THROTTLE_MIN:
     print("left val is too high or low") 
-    break 
+    return
   elif right_val > THROTTLE_MAX or right_val < THROTTLE_MIN: 
     print("right val is too high or low") 
-    break 
+    return
   
   robot.move_gen(left_val,right_val,seconds)
   
