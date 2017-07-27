@@ -122,23 +122,23 @@ class Robot(object):
     def move_gen(self,lft_speed,rght_speed,seconds=None):
         # determine if left motor is going forwards
         if lft_speed < 0:
-            lft_dir = BACKWARD
+            lft_dir = Adafruit_MotorHAT.BACKWARD
         else:
-            lft_dir = FORWARD
+            lft_dir = Adafruit_MotorHAT.FORWARD
         lft_speed = abs(lft_speed)
         
         # determine if right motor is going forwards
         if rght_speed < 0:
-            rght_dir = BACKWARD
+            rght_dir = Adafruit_MotorHAT.BACKWARD
         else:
-            rght_dir = FORWARD
+            rght_dir = Adafruit_MotorHAT.FORWARD
         rght_speed = abs(rght_speed)
         
         self._left_speed(lft_speed)
         self._right_speed(rght_speed)
 
-        self._left.run(Adafruit_MotorHAT.lft_dir)
-        self._right.run(Adafruit_MotorHAT.rght_dir)
+        self._left.run(lft_dir)
+        self._right.run(rght_dir)
         
         if seconds is not None:
             time.sleep(seconds)
