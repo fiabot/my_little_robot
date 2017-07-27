@@ -22,50 +22,6 @@ angle = 0
 throttle = 0 
 on = True
 
-#runs when connected to client
-def connected(client):
-    global throttle,angle,on
-    # Connected function will be called when the client is connected to Adafruit IO.
-    # This is a good place to subscribe to feed changes.  The client parameter
-    # passed to this function is the Adafruit IO MQTT client so you can make
-    # calls against it easily.
-    print('Connected to Adafruit IO! ')
-    # Subscribe to changes on a feed named DemoFeed.
-    client.subscribe('turn_feed')
-    client.subscribe('on_feed')
-    client.subscribe('speed_feed')
-    
-    client.publish("turn_feed", angle)
-    client.publish("on_feed", "ON")
-    client.publish("speed_feed", throttle)
-
-#runs when disconnected to io
-def disconnected(client):
-    # Disconnected function will be called when the client disconnects.
-    print('Disconnected from Adafruit IO!')
-
-#runs when there is a new message
-def message(client, feed_id, value):
-    global angle,throttle,on
-    print("new message from {} value is {}".format(feed_id,value))
-    if feed_id == "turn_feed": 
-        angle = value 
-    elif feed_id == "speed_feed":
-        throttle = int(value) 
-        if throttle > THROTTLE_MAX: 
-            print("setting to throttle max") 
-            throttle = THROTTLE_MAX 
-        elif throttle < THROTTLE_MIN: 
-            throttle = THROTTLE_MIN
-    elif feed_id == "on_feed": 
-        if value == "OFF": 
-            on = False 
-        elif value == "ON":
-            on = True 
-    #run robot 
-    run_motor(angle, throttle)
-         
-
 #map value from left range to right range
 def translate(value, x_min, x_max, y_min, y_max):
     
@@ -112,6 +68,52 @@ def run_motor(angle,throttle,seconds = None):
   
   print("moving motor {} left and {} right" .format(left_val,right_val))
   robot.move_gen(left_val,right_val,seconds)
+
+#runs when connected to client
+def connected(client):
+    global throttle,angle,on
+    # Connected function will be called when the client is connected to Adafruit IO.
+    # This is a good place to subscribe to feed changes.  The client parameter
+    # passed to this function is the Adafruit IO MQTT client so you can make
+    # calls against it easily.
+    print('Connected to Adafruit IO! ')
+    # Subscribe to changes on a feed named DemoFeed.
+    client.subscribe('turn_feed')
+    client.subscribe('on_feed')
+    client.subscribe('speed_feed')
+    
+    client.publish("turn_feed", angle)
+    client.publish("on_feed", "ON")
+    client.publish("speed_feed", throttle)
+
+#runs when disconnected to io
+def disconnected(client):
+    # Disconnected function will be called when the client disconnects.
+    print('Disconnected from Adafruit IO!')
+
+#runs when there is a new message
+def message(client, feed_id, value):
+    global angle,throttle,on
+    print("new message from {} value is {}".format(feed_id,value))
+    if feed_id == "turn_feed": 
+        angle = value 
+    elif feed_id == "speed_feed":
+        throttle = int(value) 
+        if throttle > THROTTLE_MAX: 
+            print("setting to throttle max") 
+            throttle = THROTTLE_MAX 
+        elif throttle < THROTTLE_MIN: 
+            throttle = THROTTLE_MIN
+    elif feed_id == "on_feed": 
+        if value == "OFF": 
+            on = False 
+        elif value == "ON":
+            on = True 
+    #run robot 
+    run_motor(angle, throttle)
+         
+
+
   
 # Setup the callback functions defined above.
 client.on_connect    = connected
