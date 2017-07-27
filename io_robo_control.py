@@ -111,23 +111,12 @@ client.connect()
 while True: 
     client.loop()
     #break out of loop if the toggle button is off 
-    on_data = aio.receive("on_feed") 
-    if on_data.value == "OFF": 
-        print("turned robot off, exiting program") 
-        break 
-  
-    #get angle from io
-    angle_data = aio.receive("turn_feed") 
-    
-    #get throttle data 
-    throttle_data = aio.receive("speed_feed") 
-    throttle= throttle_data.value
-    
-  
-    
-    
+    if !on: 
+        print("robot turned off exiting out of program") 
+        break
+   
     #run robot 
-    run_motor(angle_data.value, throttle)
+    run_motor(angle, throttle)
     
-    time.sleep(5)
+    time.sleep(0.1)
   
