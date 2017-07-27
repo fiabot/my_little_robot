@@ -62,6 +62,8 @@ def message(client, feed_id, value):
             on = False 
         elif value == "ON":
             on = True 
+    #run robot 
+    run_motor(angle, throttle)
          
 
 #map value from left range to right range
@@ -125,8 +127,7 @@ while True:
         print("robot turned off exiting out of program") 
         break
    
-    #run robot 
-    run_motor(angle, throttle)
+    
     
     time.sleep(0.1)
   
