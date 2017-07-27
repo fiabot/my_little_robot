@@ -10,7 +10,7 @@ LEFT_TRIM   = -4
 RIGHT_TRIM  = 0
 ANGLE_MIN = -90 
 ANGLE_MAX = 90 
-THROTTLE_MAX = 3 
+THROTTLE_MAX = 255 
 THROTTLE_MIN = -255
 
 USERNAME = 'fiabot'
@@ -48,6 +48,7 @@ def message(client, feed_id, value):
     elif feed_id == "speed_feed":
         throttle = value 
         if throttle > THROTTLE_MAX: 
+            print("setting to throttle max") 
             throttle = THROTTLE_MAX 
         elif throttle < THROTTLE_MIN: 
             throttle = THROTTLE_MIN
