@@ -30,17 +30,17 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 
   
 def run_motor(angle,throttle,seconds = None): 
-  global ANGLE_MIN, ANGLE_MAX,THROTTLE_MIN,THROTTLE_MAX, robot
+  global ANGLE_MIN, ANGLE_MAX,robot
   
   if angle < 0: 
     right_val = throttle 
-    left_val = translate(angle, ANGLE_MIN,ANGLE_MAX,THROTTLE_MIN,THROTTLE_MAX)
+    left_val = translate(angle, ANGLE_MIN,ANGLE_MAX,-throttle,throttle)
   elif angle >0: 
     left_val = throttle 
-    right_val = translate(angle,ANGLE_MIN,ANGLE_MAX,THROTTLE_MIN,THROTTLE_MAX) 
+    right_val = translate(angle,ANGLE_MIN,ANGLE_MAX,-throttle,throttle) 
   else: 
-    left_val = 0
-    right_val = 0 
+    left_val = throttle
+    right_val = throttle 
   
   robot.move_gen(left_val,right_val)
   
@@ -48,21 +48,26 @@ def run_motor(angle,throttle,seconds = None):
 
 while True: 
   
-  #break out of loop if the toggle button is off 
-  on_data = aio.receive("on_feed") 
-  if on_data.value == "OFF": 
-    break 
+    #break out of loop if the toggle button is off 
+    on_data = aio.receive("on_feed") 
+    if on_data.value == "OFF": 
+        break 
   
-  #get angle from io
-  angle_data = aio.receive("turn_feed") 
+    #get angle from io
+    angle_data = aio.receive("turn_feed") 
   
-  #get throttle data 
-  throttle_data = aio.receive("speed_feed") 
+    #get throttle data 
+    throttle_data = aio.receive("speed_feed") 
   
-  #run robot 
-  run_motor(angle_data.value, throttle_data.value)
+    if throttle_data.value > THROTTLE_MAX: 
+        throttle_data.value = THROTTLE_MAX 
+    elif throttle_data.value < THROTTLE_MIN: 
+        thrott_data.value = THROTTLE_MIN
+    
+    #run robot 
+    run_motor(angle_data.value, throttle_data.value)
   
-  time.sleep(0.1)
+    time.sleep(0.1)
   
   
   
