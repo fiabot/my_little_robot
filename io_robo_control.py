@@ -67,9 +67,3 @@ while True:
     #run robot 
     run_motor(angle_data.value, throttle_data.value,0.1)
   
-  
-  
-  
-  
-  
-  
