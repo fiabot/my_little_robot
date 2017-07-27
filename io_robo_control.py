@@ -36,7 +36,7 @@ def connected(client):
     client.subscribe('speed_feed')
     
     client.publish("turn_feed", angle)
-    client.publish("on_feed", on)
+    client.publish("on_feed", "ON")
     client.publish("speed_feed", throttle)
 
 #runs when disconnected to io
