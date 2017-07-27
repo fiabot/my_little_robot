@@ -17,18 +17,20 @@ aio = Client(ADAFRUIT_IO_KEY) #set up io client
 robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robot
 
 #map value from left range to right range
-def translate(value, min1, max1, min2, max2):
-    # Figure out how 'wide' each range is
-    max2 = int(max2) 
-    min2 = int(min2)
-    span1 = max1 - min1
-    span2 = max2 - min2
+def translate(value, x_min, x_max, y_min, y_max):
+    
+    #find slope
+    m = (y_max-y_min) / (x_max - x_min) 
+    
+    #solve for b
+    b = y_min - (m*x_min)
+    
+    #get new value 
+    new_value = m*value + b 
+    
+    #return new_valie 
+    return new_value
 
-    # Convert the left range into a 0-1 range (float)
-    valueScaled = float(value - min1) / float(span1)
-
-    # Convert the 0-1 range into a value in the right range.
-    return min2 + (valueScaled * span2)
 
   
 def run_motor(angle,throttle,seconds = None): 
