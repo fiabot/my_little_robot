@@ -6,7 +6,7 @@ from Adafruit_IO import Client
 import Robot
 
 # globals 
-LEFT_TRIM   = 0
+LEFT_TRIM   = -5
 RIGHT_TRIM  = 0
 ANGLE_MIN = -90 
 ANGLE_MAX = 90 
