@@ -85,7 +85,7 @@ while True:
         throttle = THROTTLE_MIN
     
     #run robot 
-    run_motor(angle_data.value, throttle_data.value)
+    run_motor(angle_data.value, throttle)
     
     time.sleep(1)
   
