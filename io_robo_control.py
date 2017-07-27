@@ -79,4 +79,6 @@ while True:
     
     #run robot 
     run_motor(angle_data.value, throttle_data.value)
+    
+    time.sleep(0.1)
   
