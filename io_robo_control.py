@@ -111,7 +111,7 @@ client.connect()
 while True: 
     client.loop()
     #break out of loop if the toggle button is off 
-    if !on: 
+    if not on: 
         print("robot turned off exiting out of program") 
         break
    
