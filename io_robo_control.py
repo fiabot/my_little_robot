@@ -10,7 +10,7 @@ LEFT_TRIM   = -4
 RIGHT_TRIM  = 0
 ANGLE_MIN = -90 
 ANGLE_MAX = 90 
-THROTTLE_MAX = 255 
+THROTTLE_MAX = 3 
 THROTTLE_MIN = -255
 
 USERNAME = 'fiabot'
@@ -22,6 +22,7 @@ angle = 0
 throttle = 0 
 on = True
 
+#runs when connected to client
 def connected(client):
     # Connected function will be called when the client is connected to Adafruit IO.
     # This is a good place to subscribe to feed changes.  The client parameter
@@ -33,10 +34,12 @@ def connected(client):
     client.subscribe('on_feed')
     client.subscribe('speed_feed')
 
+#runs when disconnected to io
 def disconnected(client):
     # Disconnected function will be called when the client disconnects.
     print('Disconnected from Adafruit IO!')
-    
+
+#runs when there is a new message
 def message(client, feed_id, value):
     global angle,throttle,on
     print("new message from {} value is {}".format(feed_id,value))
@@ -53,8 +56,7 @@ def message(client, feed_id, value):
             on = False 
         elif value == "ON":
             on = True 
-        
-  
+         
 
 #map value from left range to right range
 def translate(value, x_min, x_max, y_min, y_max):
