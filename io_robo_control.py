@@ -45,7 +45,7 @@ def run_motor(angle,throttle,seconds = None):
     left_val = throttle 
     right_val = translate(angle,0,ANGLE_MAX,-throttle,throttle)
     print(" before right_val" + str(right_val))
-    right_val = int(right_val)
+    right_val = int(-right_val)
     print("right_val" + str(right_val))
   else: 
     left_val = throttle
