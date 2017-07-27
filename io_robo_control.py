@@ -58,11 +58,12 @@ while True:
   
     #get throttle data 
     throttle_data = aio.receive("speed_feed") 
+    throttle= throttle.value
   
-    if throttle_data.value > THROTTLE_MAX: 
-        throttle_data.value = THROTTLE_MAX 
-    elif throttle_data.value < THROTTLE_MIN: 
-        thrott_data.value = THROTTLE_MIN
+    if throttle > THROTTLE_MAX: 
+        throttle = THROTTLE_MAX 
+    elif throttle < THROTTLE_MIN: 
+        throttle = THROTTLE_MIN
     
     #run robot 
     run_motor(angle_data.value, throttle_data.value,0.1)
