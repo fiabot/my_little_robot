@@ -39,6 +39,7 @@ def disconnected(client):
     
 def message(client, feed_id, value):
     global angle,throttle,on
+    print("new message from {} value is {}".format(feed_id,value))
     if feed_id == "turn_feed": 
         angle = value 
     elif feed_id == "speed_feed": 
