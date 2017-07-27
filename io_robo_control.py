@@ -2,7 +2,7 @@
 
 #imports 
 import time 
-from Adafruit_IO import Client
+from Adafruit_IO import MQTTClient
 import Robot
 
 # globals 
@@ -12,9 +12,48 @@ ANGLE_MIN = -90
 ANGLE_MAX = 90 
 THROTTLE_MAX = 255 
 THROTTLE_MIN = -255
+
+USERNAME = 'fiabot'
 ADAFRUIT_IO_KEY = "07939487d2614d2482d79902f43486a9" #adafruit io key 
-aio = Client(ADAFRUIT_IO_KEY) #set up io client 
+client = MQTTClient(USERNAME, ADAFRUIT_IO_KEY)
+
 robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robot
+angle = 0 
+throttle = 0 
+on = True
+
+def connected(client):
+    # Connected function will be called when the client is connected to Adafruit IO.
+    # This is a good place to subscribe to feed changes.  The client parameter
+    # passed to this function is the Adafruit IO MQTT client so you can make
+    # calls against it easily.
+    print('Connected to Adafruit IO! ')
+    # Subscribe to changes on a feed named DemoFeed.
+    client.subscribe('turn_feed')
+    client.subscribe('on_feed')
+    client.subscribe('speed_feed')
+
+def disconnected(client):
+    # Disconnected function will be called when the client disconnects.
+    print('Disconnected from Adafruit IO!')
+    
+def message(client, feed_id, value):
+    global angle,throttle,on
+    if feed_id == "turn_feed": 
+        angle = value 
+    elif feed_id == "speed_feed": 
+        throttle = value 
+        if throttle > THROTTLE_MAX: 
+            throttle = THROTTLE_MAX 
+        elif throttle < THROTTLE_MIN: 
+            throttle = THROTTLE_MIN
+    elif feed_id == "on_feed": 
+        if value == "OFF": 
+            on = False 
+        elif value == "ON":
+            on = True 
+        
+  
 
 #map value from left range to right range
 def translate(value, x_min, x_max, y_min, y_max):
@@ -62,10 +101,15 @@ def run_motor(angle,throttle,seconds = None):
   
   robot.move_gen(left_val,right_val,seconds)
   
-   
+# Setup the callback functions defined above.
+client.on_connect    = connected
+client.on_disconnect = disconnected
+client.on_message    = message
+
+client.connect()
 
 while True: 
-    time.sleep(5)
+    client.loop()
     #break out of loop if the toggle button is off 
     on_data = aio.receive("on_feed") 
     if on_data.value == "OFF": 
@@ -74,17 +118,13 @@ while True:
   
     #get angle from io
     angle_data = aio.receive("turn_feed") 
-    time.sleep(5)
     
     #get throttle data 
     throttle_data = aio.receive("speed_feed") 
     throttle= throttle_data.value
     
   
-    if throttle > THROTTLE_MAX: 
-        throttle = THROTTLE_MAX 
-    elif throttle < THROTTLE_MIN: 
-        throttle = THROTTLE_MIN
+    
     
     #run robot 
     run_motor(angle_data.value, throttle)
