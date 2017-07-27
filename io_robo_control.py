@@ -34,6 +34,7 @@ def translate(value, min1, max1, min2, max2):
 def run_motor(angle,throttle,seconds = None): 
   global ANGLE_MIN, ANGLE_MAX,robot
   throttle = int(throttle)
+  angle = int(angle)
   if angle < 0: 
     right_val = throttle 
     left_val = translate(angle, ANGLE_MIN,0,-throttle,throttle)
