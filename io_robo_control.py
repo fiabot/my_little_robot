@@ -32,7 +32,7 @@ def translate(value, min1, max1, min2, max2):
 
   
 def run_motor(angle,throttle,seconds = None): 
-  global ANGLE_MIN, ANGLE_MAX,robot
+  global ANGLE_MIN, ANGLE_MAX,robot, THROTTLE_MAX,THROTTLE_MIN
   throttle = int(throttle)
   angle = int(angle)
   if angle < 0: 
@@ -44,6 +44,13 @@ def run_motor(angle,throttle,seconds = None):
   else: 
     left_val = throttle
     right_val = throttle 
+    
+  if left_val > THROTTLE_MAX or left_val < THROTTLE_MIN:
+    print("left val is too high or low") 
+    break 
+  elif right_val > THROTTLE_MAX or right_val < THROTTLE_MIN: 
+    print("right val is too high or low") 
+    break 
   
   robot.move_gen(left_val,right_val,seconds)
   
