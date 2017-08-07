@@ -48,14 +48,16 @@ def run_motor(angle,throttle,seconds = None):
   if angle < 0: 
     right_val = throttle 
     left_val = translate(angle, ANGLE_MIN,0,-throttle,throttle)
-    left_val = int(left_val)
     print("angle is {} and left_val is {}" .format(angle,left_val))
+    left_val = int(left_val)
+    
 
   elif angle >0: 
     left_val = throttle 
     right_val = translate(angle, 0,ANGLE_MAX,-throttle,throttle)
-    right_val = int(-right_val)
     print("angle is {} and right_val is {}" .format(angle,right_val))
+    right_val = int(-right_val)
+    
     
   else: 
     left_val = throttle
