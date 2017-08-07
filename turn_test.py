@@ -18,5 +18,5 @@ robot.move_gen(0,throttle,3)
 time.sleep(1)
 
 print("slow turn") 
-robot.move_gen(throttle/4,throttle,3) 
+robot.move_gen(throttle/1.1,throttle,3) 
 time.sleep(1)
