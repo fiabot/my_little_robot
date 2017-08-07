@@ -1,14 +1,18 @@
 import Robot 
 import time 
 
+LEFT_TRIM   = -4
+RIGHT_TRIM  = 0
+
 throttle = 100.0
+robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robot
 
 
 print("fast turn") 
-move_gen(-throttle,throttle,1) 
+robot.move_gen(-throttle,throttle,1) 
 
 print("medium turn") 
-move_gen(0,throttle,1) 
+robot.move_gen(0,throttle,1) 
 
 print("slow turn") 
-move_gen(throttle/2,throttle,1) 
+robot.move_gen(throttle/2,throttle,1) 
