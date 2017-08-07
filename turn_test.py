@@ -4,7 +4,7 @@ import time
 LEFT_TRIM   = -4
 RIGHT_TRIM  = 0
 
-throttle = 100.0
+throttle = 100
 robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robot
 
 
