@@ -9,7 +9,7 @@ robot = Robot.Robot(left_trim=LEFT_TRIM, right_trim=RIGHT_TRIM) #define the robo
 
 
 print("fast turn") 
-robot.move_gen(-throttle,throttle,1) 
+robot.move_gen(-throttle,throttle,3) 
 
 time.sleep(1)
 
